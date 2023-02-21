@@ -13,3 +13,7 @@ interface RatingI {
     rate: number,
     count: number,
 }
+
+interface CategoriesI {
+    
+}

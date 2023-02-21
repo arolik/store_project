@@ -1,12 +1,14 @@
-import { Breadcrumb, Card, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { useEffect } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import { fetchProducts } from "../../store/appSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { Route, Routes } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
+import NavStore from "./NavStore";
 import AllProducts from "./pages/AllProducts";
-const { Meta } = Card;
-
+import Electronics from "./pages/Electronics";
+import Jewelery from "./pages/Jewelery";
+import Login from "./pages/Login";
+import Men from "./pages/Men";
+import Womens from "./pages/Womens";
 
 const ContentStore: React.FC = () => {
 
@@ -15,22 +17,20 @@ const ContentStore: React.FC = () => {
         marginRight: '0px',
     }
 
-    
     return (
         <Content style={{ marginTop: '1rem' }}>
             <Row gutter={22} justify="center" style={contentStyle}>
-                <Col style={{ marginBottom: '1rem' }}>
-                    <Breadcrumb>
-                        <Breadcrumb.Item><Link to="/">home</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to="/">main</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to="/">products</Link></Breadcrumb.Item>
-                    </Breadcrumb>
-                </Col>
+                <NavStore />
             </Row>
             <Row gutter={22} justify="center" style={contentStyle}>
                 <Col span={22} >
                     <Routes>
                         <Route path="/" element={<AllProducts />} />
+                        <Route path="/men's clothing" element={<Men />} />
+                        <Route path="/women's clothing" element={<Womens />} />
+                        <Route path="/jewelery" element={<Jewelery />} />
+                        <Route path="/electronics" element={<Electronics />} />
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                 </Col>
             </Row>

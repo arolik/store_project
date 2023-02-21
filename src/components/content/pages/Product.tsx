@@ -7,8 +7,6 @@ interface ProductInfoI {
     productInfo: ProductI
 }
 
-
-
 const Product: React.FC<ProductInfoI> = ({productInfo}) => {
 
     const productStyle: React.CSSProperties = {
@@ -20,13 +18,12 @@ const Product: React.FC<ProductInfoI> = ({productInfo}) => {
 
     const [open, setOpen] = useState(false);
     
-    
     return (
-        <Col xs={{ span: 10 }}  sm={{ span: 10 }}  md={{ span: 7 }} xl={{ span: 5 }}>
+        <Col xs={{ span: 12 }}  sm={{ span: 10 }}  md={{ span: 7 }} xl={{ span: 5 }}>
             <Card className="card__product"
             hoverable 
             style={productStyle} 
-            cover={<img alt="text" width={'100%'} src={`${productInfo.image}`} />}     
+            cover={<img alt="text"  src={`${productInfo.image}`} />}     
             >
             <div>
                 <p>{productInfo.title}</p>
