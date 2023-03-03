@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ProductI } from "../components/assets/interfaces";
+
+import { CartProductI, CountProductI, ProductI, TokenI } from "../components/assets/interfaces";
 
 export const fetchProducts = createAsyncThunk<Array<ProductI>, undefined, {rejectValue:string}>(
     'products/fetchProducts',
@@ -74,21 +75,21 @@ export const fetchElectronicsProducts = createAsyncThunk<Array<ProductI>, undefi
     }
 );
 
-export const fetchLogin = createAsyncThunk (
+export const fetchLogin = createAsyncThunk<TokenI, {userName: string, userPassword: string}, {rejectValue:string}> (
     'products/fetchLogin',
-    async function(undefined, {rejectWithValue}) {
+    async function({userName, userPassword}, {rejectWithValue}) {
         const response = await fetch('https://fakestoreapi.com/auth/login', {
             method: 'POST',
             body: JSON.stringify({
-                username: "mor_2314",
-                password: "83r5^_"
+                username: userName,
+                password: userPassword
             }),
             headers: {
                 'Content-type': 'application/json'
             }
         })
         if(!response.ok){
-            return rejectWithValue('ooops')
+            return rejectWithValue('incorrect login or password')
         }
         const data = await response.json();
         return data;
@@ -104,9 +105,10 @@ interface StateI {
         jeweleryCategory: Array<ProductI>,
         electronicsCategory: Array<ProductI>
     },
+    cart: Array<CartProductI>,
     loading: boolean,
-    login: boolean,
-    userToken: string
+    isLogin: boolean,
+    errorMessage: string | undefined
 }
 
 const initialState: StateI = {
@@ -118,9 +120,10 @@ const initialState: StateI = {
         jeweleryCategory: [],
         electronicsCategory: []
     },
+    cart: [],
     loading: false,
-    login: false,
-    userToken: ''
+    isLogin: true,
+    errorMessage: ''
 }
 
 const appSlice = createSlice({
@@ -128,7 +131,21 @@ const appSlice = createSlice({
     initialState,
     reducers: {
         changeStatusLogin (state) {
-            state.login = false;
+            state.isLogin = false;
+        },
+        setCart (state, action: PayloadAction<CartProductI>) {
+            state.cart.push({product: action.payload.product, sum: action.payload.sum, count: action.payload.count, id: action.payload.id});
+        },
+        changeCountCartProduct (state, action: PayloadAction<CountProductI>) {
+            let elem = state.cart.find((p) => p.id === action.payload.id );
+            if(elem){
+                elem.count = action.payload.count;
+                elem.sum = action.payload.sum;
+            }
+            
+        },
+        remoweCartProduct (state, action) {
+            state.cart = state.cart.filter((p) => p.id !== action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -172,12 +189,16 @@ const appSlice = createSlice({
             state.loading = false;
         })
         .addCase(fetchLogin.fulfilled, (state, action) => {
-            state.userToken = action.payload.token;
-            state.login = true;
+            localStorage.setItem('userToken', action.payload.token);
+            state.isLogin = true;
+            state.errorMessage = "";
+        })
+        .addCase(fetchLogin.rejected, (state, action) => {
+            state.errorMessage = action.payload;
         })
     }
 })
 
-export const { changeStatusLogin } = appSlice.actions;
+export const { changeStatusLogin, setCart, changeCountCartProduct, remoweCartProduct } = appSlice.actions;
 export default appSlice.reducer;
 

@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import NavStore from "./NavStore";
 import AllProducts from "./pages/AllProducts";
+import Cart from "./pages/Cart";
 import Electronics from "./pages/Electronics";
 import Jewelery from "./pages/Jewelery";
 import Login from "./pages/Login";
@@ -23,7 +24,7 @@ const ContentStore: React.FC = () => {
                 <NavStore />
             </Row>
             <Row gutter={22} justify="center" style={contentStyle}>
-                <Col span={22} >
+                <Col span={22} className="my__app">
                     <Routes>
                         <Route path="/" element={<AllProducts />} />
                         <Route path="/men's clothing" element={<Men />} />
@@ -31,6 +32,7 @@ const ContentStore: React.FC = () => {
                         <Route path="/jewelery" element={<Jewelery />} />
                         <Route path="/electronics" element={<Electronics />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/cart" element={<Cart />} />
                     </Routes>
                 </Col>
             </Row>

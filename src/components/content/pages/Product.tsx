@@ -1,6 +1,9 @@
-import { Button, Card, Col, Modal, Rate, Row, Typography } from "antd";
+import { Button, Card, Col, Modal, Rate, Row, Typography, notification } from "antd";
 import { useState } from "react";
+import { setCart } from "../../../store/appSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { ProductI } from "../../assets/interfaces";
+import { token } from "../../assets/vars";
 const { Text } = Typography;
 
 interface ProductInfoI {
@@ -17,6 +20,21 @@ const Product: React.FC<ProductInfoI> = ({productInfo}) => {
     }
 
     const [open, setOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const isLogin = useAppSelector(state => state.appSlice.isLogin);
+
+
+    function addToCart () {
+        dispatch(setCart({product: productInfo, sum: productInfo.price, count: 1, id: productInfo.id}))    
+    }
+
+    function showAlert () {
+        notification.open({
+            message: 'Notiffication message',
+            description: 'you have to login'
+        })
+    }
+    
     
     return (
         <Col xs={{ span: 12 }}  sm={{ span: 10 }}  md={{ span: 7 }} xl={{ span: 5 }}>
@@ -30,7 +48,10 @@ const Product: React.FC<ProductInfoI> = ({productInfo}) => {
                 <p>{productInfo.price}</p>
                 <Row gutter={24} justify="center" style={{ marginBottom: '1rem' }}>
                     <Col>
-                        <Button type="primary">Add to cart</Button>
+                        {isLogin ? 
+                        <Button type="primary" onClick={addToCart} >Add to cart</Button> :
+                        <Button type="primary" onClick={showAlert} >Add to cart</Button>
+                        }           
                     </Col>
                 </Row>
                 <Row gutter={24} justify="center">

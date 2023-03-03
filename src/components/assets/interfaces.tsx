@@ -14,6 +14,19 @@ interface RatingI {
     count: number,
 }
 
-interface CategoriesI {
-    
+export interface TokenI {
+    token: string
+}
+
+export interface CartProductI {
+    product: ProductI,
+    sum: number,
+    count: number,
+    id: number
+}
+
+export interface CountProductI {
+    count: any,
+    id: number,
+    sum: number
 }

@@ -1,21 +1,26 @@
 import 'antd/dist/reset.css';
-import { Button, Col, Row } from 'antd';
 import './App.scss';
-import { Header } from 'antd/es/layout/layout';
 import HeaderStore from './components/header/HeaderStore';
 import ContentStore from './components/content/ContentStore';
+import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import { changeStatusLogin } from './store/appSlice';
+import { token } from './components/assets/vars';
 
 
-function App() {
+const App = () => {
+
+  const isLogin = useAppSelector(state => state.appSlice.isLogin);
+  const dispatch = useAppDispatch();
   
   
 
-  return (
-    <>
-      <HeaderStore />
-      <ContentStore />
-    </>
-  );
+    return (
+        <>
+          <HeaderStore />
+          <ContentStore />
+        </>
+    );
 }
 
 export default App;
