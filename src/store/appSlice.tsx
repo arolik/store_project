@@ -108,7 +108,7 @@ interface StateI {
     cart: Array<CartProductI>,
     loading: boolean,
     isLogin: boolean,
-    errorMessage: string | undefined
+    errorMessage: string | undefined,
 }
 
 const initialState: StateI = {
@@ -122,8 +122,8 @@ const initialState: StateI = {
     },
     cart: [],
     loading: false,
-    isLogin: true,
-    errorMessage: ''
+    isLogin: false,
+    errorMessage: '',
 }
 
 const appSlice = createSlice({
@@ -134,7 +134,9 @@ const appSlice = createSlice({
             state.isLogin = false;
         },
         setCart (state, action: PayloadAction<CartProductI>) {
-            state.cart.push({product: action.payload.product, sum: action.payload.sum, count: action.payload.count, id: action.payload.id});
+            if(!state.cart.find((p) => p.id === action.payload.id )){
+                state.cart.push({product: action.payload.product, sum: action.payload.sum, count: action.payload.count, id: action.payload.id});
+            } 
         },
         changeCountCartProduct (state, action: PayloadAction<CountProductI>) {
             let elem = state.cart.find((p) => p.id === action.payload.id );
@@ -142,10 +144,13 @@ const appSlice = createSlice({
                 elem.count = action.payload.count;
                 elem.sum = action.payload.sum;
             }
-            
+             
         },
         remoweCartProduct (state, action) {
             state.cart = state.cart.filter((p) => p.id !== action.payload)
+        },
+        clearCart (state) {
+            state.cart = []
         }
     },
     extraReducers: (builder) => {
@@ -199,6 +204,6 @@ const appSlice = createSlice({
     }
 })
 
-export const { changeStatusLogin, setCart, changeCountCartProduct, remoweCartProduct } = appSlice.actions;
+export const { changeStatusLogin, setCart, changeCountCartProduct, remoweCartProduct, clearCart } = appSlice.actions;
 export default appSlice.reducer;
 

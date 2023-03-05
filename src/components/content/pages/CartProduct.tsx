@@ -20,9 +20,8 @@ const CartProduct: React.FC<CartProductI> = ({product}) => {
     function changeCount (value: any) {
         if(value !== null){
             setPrice(value * product.price);
-            dispatch(changeCountCartProduct({id: product.id, count: value, sum: price}))
+            dispatch(changeCountCartProduct({id: product.id, count: value, sum: value * product.price}))
         }
-        
     }
 
     function delProduct () {
@@ -32,7 +31,7 @@ const CartProduct: React.FC<CartProductI> = ({product}) => {
     return (
     
         <Row key={product.id} align="middle" justify="space-between" style={cartStyle} >
-            <Col>
+            <Col xs={{ span: 24 }} sm={{ span :24 }} lg={{ span: 12 }}>
                 <Row >
                     <Col style={{ marginRight: '2rem' }}>
                         <Image width={100}
@@ -44,9 +43,8 @@ const CartProduct: React.FC<CartProductI> = ({product}) => {
                     </Col>
                 </Row>
             </Col>
-
-            <Col>
-                <Row >
+            <Col xs={{ span: 24 }} sm={{ span:24 }} lg={{ span: 12 }}>
+                <Row justify="end">
                     <Col style={{ marginRight: '2rem' }}>
                         <InputNumber min={1} max={100} defaultValue={1}
                             onChange={(value: any) => changeCount(value)}

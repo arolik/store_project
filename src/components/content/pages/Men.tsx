@@ -1,4 +1,3 @@
-import { Row } from "antd";
 import { useEffect } from 'react';
 import { fetchMensProducts } from "../../../store/appSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";

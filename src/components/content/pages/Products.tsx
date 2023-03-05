@@ -1,5 +1,5 @@
 import { Row, Spin } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppSelector } from "../../../store/hooks";
 import { ProductI } from "../../assets/interfaces";
 import Product from "./Product";
 
@@ -9,7 +9,6 @@ interface ProductsI {
 
 const Products: React.FC<ProductsI> = ({products}) => {
 
-    const dispatch = useAppDispatch();
     const loading = useAppSelector(state => state.appSlice.loading);
     
     return (

@@ -1,9 +1,9 @@
-import { Badge, Button, Col, Menu, Row } from "antd";
+import { Badge, Button, Col, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import { changeStatusLogin } from "../../store/appSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
 const HeaderStore: React.FC = () => {
@@ -24,7 +24,6 @@ const HeaderStore: React.FC = () => {
         localStorage.clear();
         dispatch(changeStatusLogin());
     }
-
 
   return (
       <Header>

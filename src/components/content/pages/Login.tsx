@@ -2,9 +2,8 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import { ChangeEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { changeStatusLogin, fetchLogin } from "../../../store/appSlice";
+import { fetchLogin } from "../../../store/appSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { token } from "../../assets/vars";
 
 
 const Login: React.FC = () => {

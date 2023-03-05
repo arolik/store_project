@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { Route, Routes } from "react-router-dom";
-import { useAppSelector } from "../../store/hooks";
 import NavStore from "./NavStore";
 import AllProducts from "./pages/AllProducts";
 import Cart from "./pages/Cart";
@@ -36,7 +35,6 @@ const ContentStore: React.FC = () => {
                     </Routes>
                 </Col>
             </Row>
-            
         </Content>
     )
 }

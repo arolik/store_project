@@ -3,7 +3,6 @@ import { useState } from "react";
 import { setCart } from "../../../store/appSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { ProductI } from "../../assets/interfaces";
-import { token } from "../../assets/vars";
 const { Text } = Typography;
 
 interface ProductInfoI {
@@ -35,13 +34,15 @@ const Product: React.FC<ProductInfoI> = ({productInfo}) => {
         })
     }
     
-    
     return (
         <Col xs={{ span: 12 }}  sm={{ span: 10 }}  md={{ span: 7 }} xl={{ span: 5 }}>
             <Card className="card__product"
             hoverable 
             style={productStyle} 
-            cover={<img alt="text"  src={`${productInfo.image}`} />}     
+            cover={<img alt="text"  src={`${productInfo.image}`}  />}
+            // cover={<div style={{position:'relative', width: 'auto', height:'300px'}}>
+            //     <img alt="text" src={`${productInfo.image}`} style={{objectFit:'cover', height: '100%', width: '100%'}} />
+            //     </div>}     
             >
             <div>
                 <p>{productInfo.title}</p>
